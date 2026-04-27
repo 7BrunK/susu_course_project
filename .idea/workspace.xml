@@ -5,19 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bab2cf16-d3da-4c2d-878b-ced89f3cbd6c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/TimeRowsDataSet/bearings_analysis.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TimeRowsDataSet/results/01_dataset_summary.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TimeRowsDataSet/results/02_signals.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TimeRowsDataSet/results/03_statistics.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TimeRowsDataSet/results/04_boxplots.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TimeRowsDataSet/results/04_missing_outliers.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TimeRowsDataSet/results/05_histograms.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TimeRowsDataSet/results/05_ranges.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TimeRowsDataSet/results/06_corr_heatmap.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TimeRowsDataSet/results/06_correlation.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TimeRowsDataSet/results/07_noise.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TimeRowsDataSet/results/07_noise_stats.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableDataSet/paysim_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/TableDataSet/paysim_analysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableDataSet/plots/figure_2_types.png" beforeDir="false" afterPath="$PROJECT_DIR$/TableDataSet/plots/figure_2_types.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableDataSet/plots/figure_3_correlation.png" beforeDir="false" afterPath="$PROJECT_DIR$/TableDataSet/plots/figure_3_correlation.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableDataSet/plots/figure_4_outliers.png" beforeDir="false" afterPath="$PROJECT_DIR$/TableDataSet/plots/figure_4_outliers.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableDataSet/tables/correlation_matrix.csv" beforeDir="false" afterPath="$PROJECT_DIR$/TableDataSet/tables/correlation_matrix.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableDataSet/tables/filtered_type_counts.csv" beforeDir="false" afterPath="$PROJECT_DIR$/TableDataSet/tables/filtered_type_counts.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableDataSet/tables/outliers_info.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableDataSet/tables/sample_with_noise.csv" beforeDir="false" afterPath="$PROJECT_DIR$/TableDataSet/tables/sample_with_noise.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableDataSet/tables/statistics.csv" beforeDir="false" afterPath="$PROJECT_DIR$/TableDataSet/tables/statistics.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableDataSet/tables/type_counts.csv" beforeDir="false" afterPath="$PROJECT_DIR$/TableDataSet/tables/type_counts.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableDataSet/tables/type_ratio.csv" beforeDir="false" afterPath="$PROJECT_DIR$/TableDataSet/tables/type_ratio.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,17 +44,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.paysim_analysis.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/BrunK_Files/susu_course_project/TableDataSet&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.bearings_analysis.executor": "Run",
+    "Python.paysim_analysis.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "D:/BrunK_Files/susu_course_project/TableDataSet"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\BrunK_Files\susu_course_project\TableDataSet" />
