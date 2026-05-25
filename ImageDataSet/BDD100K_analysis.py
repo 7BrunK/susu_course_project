@@ -9,28 +9,32 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-DATASET_PATH = "bdd100k"
-LABELS_PATH = os.path.join(DATASET_PATH, "labels", "bdd100k_labels_images_train.json")
-IMAGES_PATH = os.path.join(DATASET_PATH, "images", "100k", "train")
+# =========================================================
+# Пути к данным
+# =========================================================
 
-RESULTS_PATH = "results"
-os.makedirs(RESULTS_PATH, exist_ok=True)
+IMAGES_DIR = "data/images/train"
+LABELS_FILE = "data/labels/train_labels.json"
 
-
-def load_annotations():
-    # Этап 3.3.1 — загрузка и подготовка данных
-    with open(LABELS_PATH, "r", encoding="utf-8") as f:
-        annotations = json.load(f)
-
-    return annotations
+RESULTS_DIR = "results"
+os.makedirs(RESULTS_DIR, exist_ok=True)
 
 
-def analyze_class_balance(annotations):
-    # Этап 3.3.1 — анализ баланса классов
+# =========================================================
+# Загрузка аннотаций
+# Этап 3.3.1 — Баланс классов
+# =========================================================
 
+def load_annotations(labels_path):
+    with open(labels_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    return data
+
+
+def extract_class_distribution(data):
     class_counter = Counter()
 
-    for item in annotations:
+    for item in data:
         labels = item.get("labels", [])
 
         for label in labels:
@@ -39,34 +43,86 @@ def analyze_class_balance(annotations):
             if category is not None:
                 class_counter[category] += 1
 
-    df_classes = pd.DataFrame(
-        class_counter.items(),
-        columns=["class", "count"]
-    ).sort_values(by="count", ascending=False)
+    return class_counter
 
-    plt.figure(figsize=(14, 8))
-    plt.bar(df_classes["class"], df_classes["count"])
-    plt.xticks(rotation=90)
+
+def plot_class_distribution(class_counter):
+    classes = list(class_counter.keys())
+    counts = list(class_counter.values())
+
+    plt.figure(figsize=(14, 7))
+    plt.bar(classes, counts)
+
+    plt.xticks(rotation=45)
     plt.xlabel("Класс")
     plt.ylabel("Количество объектов")
     plt.title("Распределение объектов по классам")
 
     plt.tight_layout()
-    plt.savefig(os.path.join(RESULTS_PATH, "1_balance_classes.png"))
+    plt.savefig(
+        os.path.join(RESULTS_DIR, "3_3_1_class_distribution.png")
+    )
     plt.close()
 
+    df = pd.DataFrame({
+        "class": classes,
+        "count": counts
+    })
 
-def visualize_examples(annotations, num_images=4):
-    # Этап 3.3.2 — визуализация примеров изображений
+    df.to_csv(
+        os.path.join(RESULTS_DIR, "3_3_1_class_distribution.csv"),
+        index=False
+    )
 
-    selected = random.sample(annotations, num_images)
+
+# =========================================================
+# Этап 3.3.2 — Примеры изображений
+# =========================================================
+
+def draw_bounding_boxes(image, labels):
+    for label in labels:
+        if "box2d" not in label:
+            continue
+
+        box = label["box2d"]
+
+        x1 = int(box["x1"])
+        y1 = int(box["y1"])
+        x2 = int(box["x2"])
+        y2 = int(box["y2"])
+
+        category = label.get("category", "object")
+
+        cv2.rectangle(
+            image,
+            (x1, y1),
+            (x2, y2),
+            (0, 255, 0),
+            2
+        )
+
+        cv2.putText(
+            image,
+            category,
+            (x1, max(y1 - 10, 0)),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.5,
+            (0, 255, 0),
+            1
+        )
+
+    return image
+
+
+def save_sample_images(data, images_dir, sample_count=4):
+    samples = random.sample(data, sample_count)
 
     fig, axes = plt.subplots(2, 2, figsize=(14, 10))
     axes = axes.flatten()
 
-    for ax, item in zip(axes, selected):
+    for ax, item in zip(axes, samples):
         image_name = item["name"]
-        image_path = os.path.join(IMAGES_PATH, image_name)
+        image_path = os.path.join(images_dir, image_name)
 
         image = cv2.imread(image_path)
 
@@ -77,154 +133,189 @@ def visualize_examples(annotations, num_images=4):
 
         labels = item.get("labels", [])
 
-        for label in labels:
-            box2d = label.get("box2d")
-
-            if box2d is None:
-                continue
-
-            x1 = int(box2d["x1"])
-            y1 = int(box2d["y1"])
-            x2 = int(box2d["x2"])
-            y2 = int(box2d["y2"])
-
-            cv2.rectangle(image, (x1, y1), (x2, y2), (255, 0, 0), 2)
+        image = draw_bounding_boxes(image, labels)
 
         ax.imshow(image)
         ax.set_title(image_name)
         ax.axis("off")
 
     plt.tight_layout()
-    plt.savefig(os.path.join(RESULTS_PATH, "2_examples_images.png"))
+
+    plt.savefig(
+        os.path.join(RESULTS_DIR, "3_3_2_sample_images.png")
+    )
+
     plt.close()
 
 
-def analyze_image_quality(annotations):
-    # Этап 3.3.3 — анализ качества изображений
+# =========================================================
+# Этап 3.3.3 — Анализ качества изображений
+# =========================================================
 
+def analyze_image_quality(data, images_dir):
     widths = []
     heights = []
     brightness_values = []
 
-    sample_annotations = random.sample(annotations, min(500, len(annotations)))
-
-    for item in sample_annotations:
+    for item in data[:1000]:
         image_name = item["name"]
-        image_path = os.path.join(IMAGES_PATH, image_name)
+        image_path = os.path.join(images_dir, image_name)
 
         image = cv2.imread(image_path)
 
         if image is None:
             continue
 
-        height, width = image.shape[:2]
+        h, w = image.shape[:2]
 
-        widths.append(width)
-        heights.append(height)
+        widths.append(w)
+        heights.append(h)
 
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        brightness_values.append(np.mean(gray))
+        brightness = np.mean(gray)
 
-    df_quality = pd.DataFrame({
-        "width": widths,
-        "height": heights,
-        "brightness": brightness_values
-    })
+        brightness_values.append(brightness)
 
-    plt.figure(figsize=(10, 6))
-    plt.hist(df_quality["brightness"], bins=30)
+    plt.figure(figsize=(12, 6))
+
+    plt.hist(brightness_values, bins=30)
 
     plt.xlabel("Средняя яркость")
     plt.ylabel("Количество изображений")
     plt.title("Распределение яркости изображений")
 
     plt.tight_layout()
-    plt.savefig(os.path.join(RESULTS_PATH, "3_image_quality.png"))
-    plt.close()
 
-
-def analyze_annotations(annotations):
-    # Этап 3.3.4 — анализ аннотаций
-
-    bbox_widths = []
-    bbox_heights = []
-
-    for item in annotations:
-        labels = item.get("labels", [])
-
-        for label in labels:
-            box2d = label.get("box2d")
-
-            if box2d is None:
-                continue
-
-            width = box2d["x2"] - box2d["x1"]
-            height = box2d["y2"] - box2d["y1"]
-
-            bbox_widths.append(width)
-            bbox_heights.append(height)
-
-    df_boxes = pd.DataFrame({
-        "bbox_width": bbox_widths,
-        "bbox_height": bbox_heights
-    })
-
-    plt.figure(figsize=(8, 8))
-    plt.scatter(
-        df_boxes["bbox_width"],
-        df_boxes["bbox_height"],
-        alpha=0.3
+    plt.savefig(
+        os.path.join(RESULTS_DIR, "3_3_3_image_quality.png")
     )
 
-    plt.xlabel("Ширина bounding box")
-    plt.ylabel("Высота bounding box")
-    plt.title("Размеры bounding box объектов")
-
-    plt.tight_layout()
-    plt.savefig(os.path.join(RESULTS_PATH, "4_annotations_analysis.png"))
     plt.close()
 
+    quality_df = pd.DataFrame({
+        "width": widths,
+        "height": heights,
+        "brightness": brightness_values
+    })
 
-def analyze_annotation_quality(annotations):
-    # Этап 3.3.5 — анализ качества разметки
-
-    stats = {
-        "total_images": 0,
-        "images_without_labels": 0,
-        "objects_without_box": 0,
-        "total_objects": 0
-    }
-
-    for item in annotations:
-        stats["total_images"] += 1
-
-        labels = item.get("labels", [])
-
-        if len(labels) == 0:
-            stats["images_without_labels"] += 1
-
-        for label in labels:
-            stats["total_objects"] += 1
-
-            if label.get("box2d") is None:
-                stats["objects_without_box"] += 1
-
-    df_stats = pd.DataFrame([stats])
-
-    df_stats.to_csv(
-        os.path.join(RESULTS_PATH, "5_annotation_quality.csv"),
+    quality_df.to_csv(
+        os.path.join(RESULTS_DIR, "3_3_3_image_quality.csv"),
         index=False
     )
 
 
-def main():
-    annotations = load_annotations()
+# =========================================================
+# Этап 3.3.4 — Анализ аннотаций
+# =========================================================
 
-    analyze_class_balance(annotations)
-    visualize_examples(annotations)
-    analyze_image_quality(annotations)
-    analyze_annotations(annotations)
-    analyze_annotation_quality(annotations)
+def analyze_annotations(data):
+    object_counts = []
+
+    bbox_widths = []
+    bbox_heights = []
+
+    for item in data:
+        labels = item.get("labels", [])
+
+        object_counts.append(len(labels))
+
+        for label in labels:
+            if "box2d" not in label:
+                continue
+
+            box = label["box2d"]
+
+            width = box["x2"] - box["x1"]
+            height = box["y2"] - box["y1"]
+
+            bbox_widths.append(width)
+            bbox_heights.append(height)
+
+    plt.figure(figsize=(12, 6))
+
+    plt.hist(object_counts, bins=30)
+
+    plt.xlabel("Количество объектов")
+    plt.ylabel("Количество изображений")
+    plt.title("Распределение количества объектов на изображениях")
+
+    plt.tight_layout()
+
+    plt.savefig(
+        os.path.join(RESULTS_DIR, "3_3_4_annotations.png")
+    )
+
+    plt.close()
+
+    annotations_df = pd.DataFrame({
+        "bbox_width": bbox_widths,
+        "bbox_height": bbox_heights
+    })
+
+    annotations_df.to_csv(
+        os.path.join(RESULTS_DIR, "3_3_4_annotations.csv"),
+        index=False
+    )
+
+
+# =========================================================
+# Этап 3.3.5 — Анализ качества разметки
+# =========================================================
+
+def analyze_label_quality(data):
+    invalid_boxes = 0
+    total_boxes = 0
+
+    for item in data:
+        labels = item.get("labels", [])
+
+        for label in labels:
+            if "box2d" not in label:
+                continue
+
+            total_boxes += 1
+
+            box = label["box2d"]
+
+            width = box["x2"] - box["x1"]
+            height = box["y2"] - box["y1"]
+
+            if width <= 0 or height <= 0:
+                invalid_boxes += 1
+
+    quality_df = pd.DataFrame({
+        "total_boxes": [total_boxes],
+        "invalid_boxes": [invalid_boxes],
+        "invalid_ratio_percent": [
+            (invalid_boxes / total_boxes) * 100
+            if total_boxes > 0 else 0
+        ]
+    })
+
+    quality_df.to_csv(
+        os.path.join(RESULTS_DIR, "3_3_5_label_quality.csv"),
+        index=False
+    )
+
+
+# =========================================================
+# Главный запуск
+# =========================================================
+
+def main():
+    data = load_annotations(LABELS_FILE)
+
+    class_counter = extract_class_distribution(data)
+
+    plot_class_distribution(class_counter)
+
+    save_sample_images(data, IMAGES_DIR)
+
+    analyze_image_quality(data, IMAGES_DIR)
+
+    analyze_annotations(data)
+
+    analyze_label_quality(data)
 
 
 if __name__ == "__main__":
