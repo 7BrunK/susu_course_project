@@ -5,6 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bab2cf16-d3da-4c2d-878b-ced89f3cbd6c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/TextRAG/data/corpus/support_measures_clean.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TextRAG/data/corpus/support_measures_clean.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TextRAG/pdf2txt.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TextRAG/support_measures.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ImageDataSet/BDD100K_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/ImageDataSet/BDD100K_analysis.py" afterDir="false" />
     </list>
@@ -31,21 +35,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.bearings_analysis.executor&quot;: &quot;Run&quot;,
-    &quot;Python.paysim_analysis.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/BrunK_Files/susu_course_project/TableDataSet&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.BDD100K_analysis.executor": "Run",
+    "Python.bearings_analysis.executor": "Run",
+    "Python.paysim_analysis.executor": "Run",
+    "Python.pdf2txt.executor": "Run",
+    "Python.pdf2txt_raw.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "D:/BrunK_Files/susu_course_project/TextRAG"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\BrunK_Files\susu_course_project\TextRAG" />
       <recent name="D:\BrunK_Files\susu_course_project\TableDataSet" />
     </key>
   </component>
