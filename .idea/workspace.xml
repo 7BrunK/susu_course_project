@@ -5,12 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bab2cf16-d3da-4c2d-878b-ced89f3cbd6c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/TextRAG/data/corpus/support_measures_clean.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TextRAG/data/corpus/support_measures_clean.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TextRAG/pdf2txt.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TextRAG/support_measures.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TextRAG/analysis.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TextRAG/analysis_results/search_results.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TextRAG/analysis_results/tfidf_top_words.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TextRAG/analysis_results/tfidf_words.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TextRAG/analysis_results/word_frequency.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TextRAG/analysis_results/word_frequency.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TextRAG/analysis_results/word_frequency_no_stopwords.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TextRAG/analysis_results/word_frequency_no_stopwords.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TextRAG/analysis_results/wordcloud_after_stopwords.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TextRAG/analysis_results/wordcloud_before_stopwords.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ImageDataSet/BDD100K_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/ImageDataSet/BDD100K_analysis.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +45,7 @@
     "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Python.BDD100K_analysis.executor": "Run",
+    "Python.analysis.executor": "Run",
     "Python.bearings_analysis.executor": "Run",
     "Python.paysim_analysis.executor": "Run",
     "Python.pdf2txt.executor": "Run",
